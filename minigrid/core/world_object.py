@@ -12,6 +12,7 @@ from minigrid.utils.rendering import (
     point_in_circle,
     point_in_line,
     point_in_rect,
+    point_in_triangle,
 )
 
 
@@ -96,6 +97,36 @@ class WorldObj:
         """Draw this object with the given renderer"""
         raise NotImplementedError
 
+class Circle(WorldObj):
+    def __init__(self, color, cx, cy, r):
+        super().__init__("ball", color)
+        self.cx = cx
+        self.cy = cy
+        self.r = r
+
+    def can_pickup(self):
+        return True
+
+    def render(self, img):
+        fill_coords(img, point_in_circle(self.cx, self.cy, self.r), COLORS[self.color])
+
+class Triangle(WorldObj):
+    def __init__(self, color, a, b, c):
+        super().__init__("ball", color)
+        self.a = a
+        self.b = b
+        self.c = c
+
+    def render(self, img):
+        fill_coords(img, point_in_triangle(self.a,self.b,self.c,), COLORS[self.color])
+
+class Sqaure(WorldObj):
+    def __init__(self, color, length):
+        super().__init__("ball", color)
+        self.length = length
+
+    def render(self, img):
+        fill_coords(img, point_in_rect(0,self.length), COLORS[self.color])
 
 class Goal(WorldObj):
     def __init__(self):
