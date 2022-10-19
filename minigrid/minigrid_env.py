@@ -347,33 +347,32 @@ class WorldObj:
         """Draw this object with the given renderer"""
         raise NotImplementedError
 
-class Triangle(WorldObj):
-    def __init__(self, color, a, b, c):
-        super().__init__("triangle", color)
-        self.a = a
-        self.b = b
-        self.c = c
+class Circle(WorldObj):
+    def __init__(self, color, radius):
+        super().__init__("circle", color)
+        self.r = radius
+
+    def can_pickup(self):
+        return True
 
     def render(self, img):
-        fill_coords(img, point_in_triangle(self.a,self.b,self.c,), COLORS[self.color])
+        fill_coords(img, point_in_circle(0.5, 0.5, self.r), COLORS[self.color])
+
+class Triangle(WorldObj):
+    def __init__(self, color, length):
+        super().__init__("triangle", color)
+        self.l = length
+
+    def render(self, img):
+        fill_coords(img, point_in_triangle(self.l,self.l,self.l), COLORS[self.color])
 
 class Sqaure(WorldObj):
     def __init__(self, color, length):
         super().__init__("square", color)
-        self.length = length
+        self.l = length
 
     def render(self, img):
-        fill_coords(img, point_in_rect(0,self.length), COLORS[self.color])
-
-class Goal(WorldObj):
-    def __init__(self):
-        super().__init__("goal", "green")
-
-    def can_overlap(self):
-        return True
-
-    def render(self, img):
-        fill_coords(img, point_in_rect(0, 1, 0, 1), COLORS[self.color])
+        fill_coords(img, point_in_rect(0,self.l), COLORS[self.color])
 
 class Goal(WorldObj):
     def __init__(self):
@@ -1128,22 +1127,13 @@ class MiniGridEnv(gym.Env):
             self.np_random.integers(yLow, yHigh),
         )
 
-    def _rand_dims(self, shape):
+    def _rand_dim(self, shape):
         if shape is 'circle':
-            r = self._rand_float(0.01, 0.49)
-            cx,cy = (self._rand_float(r, 0.99-r), self._rand_float(r, 0.99-r))
-            return (cx,cy,r)
+            return self._rand_float(0.15, 0.49)
         elif shape is 'triangle':
-            ax = self._rand_float(0.01, 0.49)
-            ay = self._rand_float(0.01, 0.49)
-            bx = ax + self._rand_float(0.1, 0.99-ax)
-            by = ay + self._rand_float(0.1, 0.99-ay)
-            cx = (bx - ax)/2
-            cy = np.sqrt((bx - ax)^2 - ((bx - ax)/2)^2)
-            return 
+            return self._rand_float(0.15, 0.99)
         elif shape is 'square':
-            length = self._rand_float(0.1, 0.9)
-            return (length)
+            return self._rand_float(0.15, 0.99)
 
     def place_obj(self, obj, top=None, size=None, reject_fn=None, max_tries=math.inf):
         """
