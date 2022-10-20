@@ -1131,23 +1131,23 @@ class MiniGridEnv(gym.Env):
 
     def _rand_dims(self, shape):
         if shape is 'circle':
-            r = self._rand_float(0.01, 0.49)
+            r = self._rand_float(0.15, 0.49)
             cx,cy = (self._rand_float(r, 0.99-r), self._rand_float(r, 0.99-r))
             area = np.pi*r**2
             return (cx,cy,r,area)
         elif shape is 'triangle':
             ax = self._rand_float(0.01, 0.49)
             ay = self._rand_float(0.01, 0.49)
-            bx = ax + self._rand_float(0.1, 0.99-ax)
+            bx = ax + self._rand_float(0.15, 0.99-ax)
             by = ay
             cx = ax + (bx - ax)/2
             cy = ay + np.sqrt((bx - ax)**2 - ((bx - ax)/2)**2)
             area = (np.sqrt(3)*(bx-ax)**2)/4
             return [(ax,ay),(bx,by),(cx,cy), area]
         elif shape is 'square':
-            xmin = self._rand_float(0.1, 0.49)
-            xmax = xmin + self._rand_float(0.1, 0.49)
-            ymin = self._rand_float(0.1, 0.49)
+            xmin = self._rand_float(0.15, 0.49)
+            xmax = xmin + self._rand_float(0.15, 0.49)
+            ymin = self._rand_float(0.15, 0.49)
             ymax = ymin + xmax - xmin
             area = (xmax-xmin)**2
             return (xmin,xmax,ymin,ymax, area)
