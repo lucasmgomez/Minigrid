@@ -18,9 +18,9 @@ COLOR_NAMES = sorted(list(COLORS.keys()))
 # Used to map colors to integers
 COLOR_TO_IDX = {"red": 0, "green": 1, "blue": 2, "purple": 3, "yellow": 4, "grey": 5}
 
-SHAPES = [Circle, Triangle, Square]
-
 IDX_TO_COLOR = dict(zip(COLOR_TO_IDX.values(), COLOR_TO_IDX.keys()))
+
+SHAPES = [Circle, Triangle, Square]
 
 # Map of object type to integers
 OBJECT_TO_IDX = {
