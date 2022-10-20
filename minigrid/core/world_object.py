@@ -21,12 +21,13 @@ class WorldObj:
     Base class for grid world objects
     """
 
-    def __init__(self, type, color):
+    def __init__(self, type, color, area):
         assert type in OBJECT_TO_IDX, type
         assert color in COLOR_TO_IDX, color
         self.type = type
         self.color = color
         self.contains = None
+        self.area = area
 
         # Initial position of the object
         self.init_pos = None
@@ -56,7 +57,7 @@ class WorldObj:
 
     def encode(self):
         """Encode the a description of this object as a 3-tuple of integers"""
-        return (OBJECT_TO_IDX[self.type], COLOR_TO_IDX[self.color], 0)
+        return (OBJECT_TO_IDX[self.type], COLOR_TO_IDX[self.color], self.area)
 
     @staticmethod
     def decode(type_idx, color_idx, state):
@@ -102,7 +103,7 @@ class WorldObj:
 
 class Circle(WorldObj):
     def __init__(self, color, dims):
-        super().__init__("circle", color)
+        super().__init__("circle", color, dims[3])
         self.r = dims[2]
         self.cx = dims[0]
         self.cy = dims[1]       
@@ -112,7 +113,7 @@ class Circle(WorldObj):
 
 class Triangle(WorldObj):
     def __init__(self, color, dims):
-        super().__init__("triangle", color)
+        super().__init__("triangle", color, dims[3])
         self.a = dims[0]
         self.b = dims[1]
         self.c = dims[2]
@@ -122,7 +123,7 @@ class Triangle(WorldObj):
 
 class Square(WorldObj):
     def __init__(self, color, dims):
-        super().__init__("square", color)
+        super().__init__("square", color, dims[4])
         self.xmin = dims[0]
         self.xmax = dims[1]
         self.ymin = dims[2]
