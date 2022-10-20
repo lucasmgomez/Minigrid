@@ -366,7 +366,7 @@ class Triangle(WorldObj):
     def render(self, img):
         fill_coords(img, point_in_triangle(self.l,self.l,self.l), COLORS[self.color])
 
-class Sqaure(WorldObj):
+class Square(WorldObj):
     def __init__(self, color, length):
         super().__init__("square", color)
         self.l = length
