@@ -107,10 +107,6 @@ class Circle(WorldObj):
         self.cx = dims[0]
         self.cy = dims[1]       
 
-
-    def can_pickup(self):
-        return True
-
     def render(self, img):
         fill_coords(img, point_in_circle(self.cx, self.cy, self.r), COLORS[self.color])
 
