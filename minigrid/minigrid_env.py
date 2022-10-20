@@ -1135,6 +1135,26 @@ class MiniGridEnv(gym.Env):
         elif shape is 'square':
             return self._rand_float(0.15, 0.99)
 
+    def _rand_dims(self, shape):
+        if shape is 'circle':
+            r = self._rand_float(0.01, 0.49)
+            cx,cy = (self._rand_float(r, 0.99-r), self._rand_float(r, 0.99-r))
+            return (cx,cy,r)
+        elif shape is 'triangle':
+            ax = self._rand_float(0.01, 0.49)
+            ay = self._rand_float(0.01, 0.49)
+            bx = ax + self._rand_float(0.1, 0.99-ax)
+            by = ay
+            cx = ax + (bx - ax)/2
+            cy = ay + np.sqrt((bx - ax)**2 - ((bx - ax)/2)**2)
+            return [(ax,ay),(bx,by),(cx,cy)]
+        elif shape is 'square':
+            xmin = self._rand_float(0.01, 0.49)
+            xmax = xmin + self._rand_float(0.1, 0.49)
+            ymin = self._rand_float(0.01, 0.49)
+            ymax = ymin + xmax - xmin
+            return (xmin,xmax,ymin,ymax)
+
     def place_obj(self, obj, top=None, size=None, reject_fn=None, max_tries=math.inf):
         """
         Place an object at an empty position in the grid
