@@ -1142,9 +1142,9 @@ class MiniGridEnv(gym.Env):
             cy = ay + np.sqrt((bx - ax)**2 - ((bx - ax)/2)**2)
             return [(ax,ay),(bx,by),(cx,cy)]
         elif shape is 'square':
-            xmin = self._rand_float(0.01, 0.49)
+            xmin = self._rand_float(0.1, 0.49)
             xmax = xmin + self._rand_float(0.1, 0.49)
-            ymin = self._rand_float(0.01, 0.49)
+            ymin = self._rand_float(0.1, 0.49)
             ymax = ymin + xmax - xmin
             return (xmin,xmax,ymin,ymax)
 
