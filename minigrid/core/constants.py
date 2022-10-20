@@ -24,6 +24,7 @@ OBJECT_TO_IDX = {
     "circle": 0,
     "triangle": 1,
     "square": 2,
+    "empty": 3
 }
 
 IDX_TO_OBJECT = dict(zip(OBJECT_TO_IDX.values(), OBJECT_TO_IDX.keys()))
