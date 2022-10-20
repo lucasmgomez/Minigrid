@@ -193,7 +193,7 @@ class Grid:
             for i in range(0, self.width):
                 cell = self.get(i, j)
 
-                agent_here = np.array_equal(agent_pos, (i, j))
+                agent_here = False
                 tile_img = Grid.render_tile(
                     cell,
                     agent_dir=agent_dir if agent_here else None,
