@@ -21,13 +21,12 @@ class WorldObj:
     Base class for grid world objects
     """
 
-    def __init__(self, type, color, area):
+    def __init__(self, type, color):
         assert type in OBJECT_TO_IDX, type
         assert color in COLOR_TO_IDX, color
         self.type = type
         self.color = color
         self.contains = None
-        self.area = area
 
         # Initial position of the object
         self.init_pos = None
