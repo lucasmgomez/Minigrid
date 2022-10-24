@@ -1151,6 +1151,16 @@ class MiniGridEnv(gym.Env):
             ymax = ymin + xmax - xmin
             area = (xmax-xmin)**2
             return (xmin,xmax,ymin,ymax, area)
+            
+    def _get_area(self, shape, dims):
+        if shape is 'circle':
+            return np.pi*dims[2]**2
+        elif shape is 'triangle':
+            l = dims[1][0] - dims[0][0]
+            return (np.sqrt(3)*l**2)/4
+        elif shape is 'square':
+            l = dims[1] - dims[0]
+            return l**2
 
     def place_obj(self, obj, top=None, size=None, reject_fn=None, max_tries=math.inf):
         """

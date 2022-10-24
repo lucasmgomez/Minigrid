@@ -102,32 +102,39 @@ class WorldObj:
         return self.type
 
 class Circle(WorldObj):
-    def __init__(self, color, dims):
-        super().__init__("circle", color, dims[3])
+    def __init__(self, color, dims, area):
+        super().__init__("circle", color)
         self.r = dims[2]
         self.cx = dims[0]
-        self.cy = dims[1]       
+        self.cy = dims[1]      
+        self.area = area 
+
+
+    def can_pickup(self):
+        return True
 
     def render(self, img):
         fill_coords(img, point_in_circle(self.cx, self.cy, self.r), COLORS[self.color])
 
 class Triangle(WorldObj):
-    def __init__(self, color, dims):
-        super().__init__("triangle", color, dims[3])
+    def __init__(self, color, dims, area):
+        super().__init__("triangle", color)
         self.a = dims[0]
         self.b = dims[1]
         self.c = dims[2]
+        self.area = area
 
     def render(self, img):
         fill_coords(img, point_in_triangle(self.a, self.b, self.c), COLORS[self.color])
 
 class Square(WorldObj):
-    def __init__(self, color, dims):
-        super().__init__("square", color, dims[4])
+    def __init__(self, color, dims, area):
+        super().__init__("square", color)
         self.xmin = dims[0]
         self.xmax = dims[1]
         self.ymin = dims[2]
         self.ymax = dims[3]
+        self.area = area
 
     def render(self, img):
         fill_coords(img, point_in_rect(self.xmin, self.xmax, self.ymin, self.ymax), COLORS[self.color])
